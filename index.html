@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Controle de Pagamentos - AP (2026/2027)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🏠</div>
+      <div>
+        <h1>Controle de Pagamentos</h1>
+        <p>Seguro Incêndio • Seguro Fiança • Aluguel — jan/2026 → abr/2027</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="btnExport" class="btn ghost">Exportar CSV</button>
+      <button id="btnReset" class="btn danger">Limpar marcações</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+
+
+            <!-- -----------------------------------------------------------
+     BLOCO PIX PARA PAGAMENTO
+  ------------------------------------------------------------ -->
+  <section class="pix-section">
+    <div class="pix-card">
+      <h3>💳 Pagamento via PIX</h3>
+
+      <div class="pix-info">
+        <div>
+          <span class="label">Chave PIX (email)</span>
+          <div class="pix-key" id="pixKey">
+            dannielld23@gmail.com
+          </div>
+        </div>
+
+        <div>
+          <span class="label">Nome</span>
+          <div class="pix-text">Daniel Silva de Souza</div>
+        </div>
+
+        <div>
+          <span class="label">Banco</span>
+          <div class="pix-text">Mercado Pago</div>
+        </div>
+      </div>
+
+      <button class="btn copy-btn" onclick="copyPix()">
+        📋 Copiar chave PIX
+      </button>
+    </div>
+  </section>
+
+
+    <section class="cards">
+      <article class="card">
+        <h3>Seguro Incêndio</h3>
+        <p class="muted">Total R$ 153,76 • 4× R$ 38,44</p>
+        <div class="pill">Venc.: dia <b>03</b></div>
+      </article>
+
+      <article class="card">
+        <h3>Seguro Fiança</h3>
+        <p class="muted">Total R$ 2.239,84 • 12× R$ 186,65</p>
+        <div class="pill">Venc.: dia <b>03</b></div>
+      </article>
+
+      <article class="card">
+        <h3>Aluguel</h3>
+        <p class="muted">R$ 2.600/mês • Contrato 12 meses</p>
+        <div class="pill">Venc.: dia <b>03</b></div>
+      </article>
+    </section>
+
+
+
+
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Tabela mensal</h2>
+          <p class="muted">
+            Meses fora do período do contrato ficam em branco.
+            Marcação de “Pago” salva no seu navegador.
+          </p>
+        </div>
+
+            <!-- -----------------------------------------------------------
+        MODO ADMIN (somente Daniel marca como pago)
+    ------------------------------------------------------------ -->
+    <div class="admin-box">
+      <label class="select">
+        <span>Modo administrador</span>
+        <div class="admin-row">
+          <input id="adminKey" class="admin-input" placeholder="Chave do Daniel (para editar)" />
+          <button id="btnAdmin" class="btn">Ativar</button>
+        </div>
+        <small class="muted" id="adminHint">Consulta livre • Edição bloqueada</small>
+      </label>
+    </div>
+
+        <div class="filters">
+          <label class="select">
+            <span>Filtrar pessoa</span>
+            <select id="personFilter">
+              <option value="ALL">Todos</option>
+              <option value="DANIEL">DANIEL</option>
+              <option value="FIALHO">FIALHO</option>
+              <option value="JOSEMAR">JOSEMAR</option>
+            </select>
+          </label>
+
+
+          
+          <label class="select">
+            <span>Mostrar</span>
+            <select id="blankFilter">
+              <option value="HIDE_BLANK" selected>Meses do contrato</option>
+              <option value="SHOW_ALL">Mostrar todos</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="paymentsTable" aria-label="Tabela de pagamentos">
+            <thead>
+              <tr>
+                <th>Mês</th>
+                <th>Quem paga</th>
+                <th>Incêndio (R$)</th>
+                <th class="center">✔</th>
+                <th>Fiança (R$)</th>
+                <th class="center">✔</th>
+                <th>Aluguel (R$)</th>
+                <th class="center">✔</th>
+                <th>Total (R$)</th>
+                <th>Em aberto (R$)</th>
+                <th class="center">Pago total</th>
+              </tr>
+            </thead>
+          <tbody>
+            <!-- JS injeta as linhas aqui -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-foot">
+        <div class="muted" id="summaryText">—</div>
+        <div class="legend">
+          <span class="dot ok"></span> pago
+          <span class="dot warn"></span> em aberto
+          <span class="dot blank"></span> mês fora do contrato
+        </div>
+      </div>
+    </section>
+
+
+    
+
+
+
+
+  </main>
+
+
+
+  <footer class="footer">
+    <span class="muted">Feito para controle interno do AP.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
